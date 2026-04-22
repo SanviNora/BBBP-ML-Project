@@ -40,4 +40,4 @@ def get_scaffold_split(X, y, smiles_list, test_frac=0.1, val_frac=0.1, seed=42):
         idxs = np.array(idxs)
         return {'X': X[idxs], 'y': y[idxs],
                 'smiles': [smiles_list[i] for i in idxs]}
-    return pack(train_idx), pack(val_idx), pack(idx_test)
+    return pack(train_idx), pack(val_idx), pack(test_idx)
