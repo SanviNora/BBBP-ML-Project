@@ -1,0 +1,7 @@
+model,split,seed,auc,f1,precision,recall
+GCN,random,42,0.8771,0.9045,0.8606,0.953
+GCN,scaffold,42,0.5315,0.7246,0.817,0.651
+GCN,random,123,0.8597,0.924,0.8634,0.9937
+GCN,scaffold,123,0.5221,0.6925,0.8112,0.6042
+GCN,random,7,0.8782,0.8949,0.8098,1.0
+GCN,scaffold,7,0.503,0.7606,0.7772,0.7448
