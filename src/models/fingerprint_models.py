@@ -45,7 +45,8 @@ class LogisticRegressionBBB:
         best_auc, best_model = -1, None
         for C in [0.001, 0.01, 0.1, 1, 10, 100]:
             lr = LogisticRegression(
-                C=C, random_state=self.seed, max_iter=1000, solver='lbfgs'
+                C=C, random_state=self.seed, max_iter=1000, solver='lbfgs',
+                class_weight='balanced'
             )
             lr.fit(X_train_sc, y_train)
             val_proba = lr.predict_proba(X_val_sc)[:, 1]
@@ -89,7 +90,8 @@ class SVMBBB:
             for gamma in ['scale', 'auto']:
                 svm = SVC(
                     kernel='rbf', C=C, gamma=gamma,
-                    probability=True, random_state=self.seed
+                    probability=True, random_state=self.seed,
+                    class_weight='balanced'
                 )
                 svm.fit(X_train_sc, y_train)
                 val_proba = svm.predict_proba(X_val_sc)[:, 1]
@@ -173,7 +175,11 @@ class MLPBBB:
         ).to(self.device)
 
         optimizer = torch.optim.Adam(self.net.parameters(), lr=MLP_LR)
-        criterion = nn.BCEWithLogitsLoss()
+        # Handle class imbalance
+        n_pos = y_train.sum()
+        n_neg = len(y_train) - n_pos
+        pos_weight = torch.tensor([n_neg / n_pos], dtype=torch.float32)
+        criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
         best_auc, patience_ctr = -1, 0
         best_state = None
