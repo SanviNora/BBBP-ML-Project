@@ -1,0 +1,7 @@
+Property,ECFP4,Molecular Graph
+Type,Fixed binary vector 2048 bits,Variable-size graph nodes=atoms edges=bonds
+Dimensionality,Always 2048 regardless of molecule size,Scales with molecule size
+Stereochemistry,Partially captured chirality flags only,Fully captured as node feature
+Information loss,Hash collisions possible,No compression full topology preserved
+Learned features,No fixed by chemistry rules,Yes GCN learns task-relevant features
+3D geometry,Not captured,Not captured 2D graph only
