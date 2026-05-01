@@ -103,6 +103,31 @@ def run_error_analysis():
         if len(fn) > 0:
             print(f"{name}: {r['n_fn']} FN | avg MW={fn['MW'].mean():.1f} LogP={fn['LogP'].mean():.2f}")
 
+    # Save summary to CSV
+    summary_rows = []
+    for name, r in results.items():
+        fp = r['fp_profile']
+        fn = r['fn_profile']
+        tp = r['tp_profile']
+        summary_rows.append({
+            'Model': name,
+            'Split': 'scaffold',
+            'N_FP': r['n_fp'],
+            'N_FN': r['n_fn'],
+            'FP_avg_MW':   round(fp['MW'].mean(), 1)   if len(fp) > 0 else '',
+            'FP_avg_LogP': round(fp['LogP'].mean(), 2) if len(fp) > 0 else '',
+            'FP_avg_HBD':  round(fp['HBD'].mean(), 1)  if len(fp) > 0 else '',
+            'FP_avg_HBA':  round(fp['HBA'].mean(), 1)  if len(fp) > 0 else '',
+            'FN_avg_MW':   round(fn['MW'].mean(), 1)   if len(fn) > 0 else '',
+            'FN_avg_LogP': round(fn['LogP'].mean(), 2) if len(fn) > 0 else '',
+            'TP_avg_MW':   round(tp['MW'].mean(), 1)   if len(tp) > 0 else '',
+            'TP_avg_LogP': round(tp['LogP'].mean(), 2) if len(tp) > 0 else '',
+        })
+
+    summary_df = pd.DataFrame(summary_rows)
+    summary_df.to_csv('results/error_analysis_summary.csv', index=False)
+    print("\nSaved to results/error_analysis_summary.csv")
+    
     return results
 
 
