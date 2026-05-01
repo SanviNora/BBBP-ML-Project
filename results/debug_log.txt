@@ -1,0 +1,6 @@
+
+===== Scaffold Split (seed=42) =====
+Train positives: 1185 / 1595
+Val positives:   183 / 208
+Test positives:  192 / 236
+Test AUC: 0.5482
