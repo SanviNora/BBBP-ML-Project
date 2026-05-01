@@ -2,7 +2,7 @@ import os
 
 # ── Paths
 DATA_DIR          = 'data/'
-RAW_DATA_PATH     = 'data/BBBP.csv'
+RAW_DATA_PATH     = 'data/raw/BBBP.csv'
 PROCESSED_DIR     = 'data/processed/'
 RESULTS_DIR       = 'results/'
 CHECKPOINT_DIR    = 'checkpoints/'
