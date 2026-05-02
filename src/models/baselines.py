@@ -53,7 +53,7 @@ class BBBRandomForest:
         best_auc, best_model = 0, None
         for n_est in [100, 300]:
             for max_d in [None, 10, 20]:
-                m = RandomForestClassifier(n_estimators=n_est, max_depth=max_d,
+                m = RandomForestClassifier(n_estimators=n_est, max_depth=max_d, class_weight='balanced',
                                            random_state=self.seed, n_jobs=-1)
                 m.fit(X_train, y_train)
                 auc = roc_auc_score(y_val, m.predict_proba(X_val)[:, 1])
