@@ -116,3 +116,25 @@ for threshold, label in [(1.0, "Exact"), (0.99, "Near")]:
 
 if not collision_found:
     print("  No collision found in this dataset.")
+
+from rdkit.Chem import Draw
+
+# ── 5. Draw ECFP4 collision molecules ────────────────────────────────────────
+if collision_found:
+    smi_a = all_smiles[valid_idx[i]]
+    smi_b = all_smiles[valid_idx[j]]
+    
+    mol_a = Chem.MolFromSmiles(smi_a)
+    mol_b = Chem.MolFromSmiles(smi_b)
+    
+    img = Draw.MolsToGridImage(
+        [mol_a, mol_b],
+        molsPerRow=2,
+        subImgSize=(400, 300),
+        legends=[
+            f"Mol A | label={all_labels[valid_idx[i]]} (BBB+)",
+            f"Mol B | label={all_labels[valid_idx[j]]} (non-BBB)",
+        ]
+    )
+    img.save("results/ecfp4_collision.png")
+    print("Saved results/ecfp4_collision.png")
