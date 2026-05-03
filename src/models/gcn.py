@@ -28,6 +28,12 @@ class GCNModel(torch.nn.Module):
             x = F.dropout(x, p=self.dropout, training=self.training)
         x = global_mean_pool(x, batch)
         return self.classifier(x).squeeze(-1)  # shape [N]
+    def get_embedding(self, x, edge_index, batch):
+        """Returns graph-level embedding before classifier, shape [N, hidden_channels]."""
+        for conv in self.convs:
+            x = F.relu(conv(x, edge_index))
+            x = F.dropout(x, p=self.dropout, training=self.training)
+        return global_mean_pool(x, batch)  # shape [N, hidden_channels]
 
 
 class GCNBBB:
@@ -145,5 +151,16 @@ class GCNBBB:
         """
         proba = self.predict_proba(graphs)
         return (proba[:, 1] >= 0.5).astype(int)
+    
+    def get_embeddings(self, graphs):
+        """Returns numpy array of shape [N, hidden_channels]."""
+        loader = DataLoader(graphs, batch_size=self.batch_size, shuffle=False)
+        self.model.eval()
+        all_embeddings = []
+        with torch.no_grad():
+            for batch in loader:
+                emb = self.model.get_embedding(batch.x, batch.edge_index, batch.batch)
+                all_embeddings.append(emb.cpu().numpy())
+        return np.concatenate(all_embeddings, axis=0)  # shape [N, hidden_channels]
 
 
