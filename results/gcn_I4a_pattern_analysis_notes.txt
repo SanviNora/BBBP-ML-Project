@@ -1,0 +1,112 @@
+gcn only correct
+MW       232.657778
+LogP       0.702778
+HBD        2.638889
+HBA        3.527778
+rings      0.805556
+
+rf only correct
+MW       211.920261
+LogP       1.455621
+HBD        1.307190
+HBA        2.470588
+rings      0.483660
+
+[I4a] GCN correct & RF wrong: 36 molecules
+[I4a] RF correct & GCN wrong: 153 molecules
+
+── GCN correct, RF wrong (top 4) ──
+  True=0 | MW=180.16 LogP=1.31 HBD=1 HBA=3 rings=1
+  SMILES: CC(=O)Oc1ccccc1C(O)=O
+  True=0 | MW=226.23 LogP=-0.05 HBD=5 HBA=5 rings=1
+  SMILES: C[C@@](Cc1ccc(O)c(O)c1)(NN)C(O)=O
+  True=0 | MW=304.22 LogP=3.38 HBD=1 HBA=2 rings=1
+  SMILES: OC(=O)CCCc1ccc(cc1)N(CCCl)CCCl
+  True=0 | MW=169.18 LogP=0.09 HBD=4 HBA=4 rings=1
+  SMILES: NCC(O)c1ccc(O)c(O)c1
+
+── RF correct, GCN wrong (top 4) ──
+  True=1 | MW=360.33 LogP=4.64 HBD=0 HBA=3 rings=1
+  SMILES: C(=O)(OC(C)(C)C)CCCc1ccc(cc1)N(CCCl)CCCl
+  True=1 | MW=356.23 LogP=0.4 HBD=3 HBA=5 rings=1
+  SMILES: C[S](=O)(=O)c1ccc(cc1)[C@@H](O)[C@@H](CO)NC(=O)C(Cl)Cl
+  True=1 | MW=336.43 LogP=2.37 HBD=3 HBA=5 rings=1
+  SMILES: c1(c(cc(NC(CCC)=O)cc1)C(C)=O)OCC(CNC(C)C)O
+  True=1 | MW=379.5 LogP=2.89 HBD=3 HBA=5 rings=1
+  SMILES: CCN(CC)C(=O)Nc1ccc(OCC(O)CNC(C)(C)C)c(c1)C(C)=O
+
+GCN correct & RF wrong:
+           MW   LogP    HBD    HBA  rings
+count   36.00  36.00  36.00  36.00  36.00
+mean   232.66   0.70   2.64   3.53   0.81
+std     88.64   1.81   1.59   1.23   0.40
+min    121.14  -3.59   0.00   2.00   0.00
+25%    181.67   0.02   1.00   3.00   1.00
+50%    212.72   1.00   2.00   3.50   1.00
+75%    267.34   1.89   4.00   4.00   1.00
+max    635.90   3.61   7.00   7.00   1.00
+
+N = 36 | true_label distribution:
+true_label
+0    36
+
+============================================================
+RF correct & GCN wrong:
+           MW    LogP     HBD     HBA   rings
+count  153.00  153.00  153.00  153.00  153.00
+mean   211.92    1.46    1.31    2.47    0.48
+std     92.40    1.56    1.11    1.58    0.50
+min     44.01  -11.74    0.00    0.00    0.00
+25%    151.16    0.96    0.00    1.00    0.00
+50%    208.10    1.46    1.00    2.00    0.00
+75%    257.72    2.27    2.00    4.00    1.00
+max    725.70    4.79    5.00    8.00    1.00
+
+N = 153 | true_label distribution:
+true_label
+1    152
+0      1
+
+============================================================
+Mean comparison:
+       GCN_wins  RF_wins    diff
+MW      232.658  211.920  20.738
+LogP      0.703    1.456  -0.753
+HBD       2.639    1.307   1.332
+HBA       3.528    2.471   1.057
+rings     0.806    0.484   0.322
+
+============================================================
+3-4 Concrete examples: GCN correct, RF wrong
+============================================================
+  Label=0 | MW=180.16 | LogP=1.31 | HBD=1 | HBA=3 | rings=1
+  SMILES: CC(=O)Oc1ccccc1C(O)=O
+
+  Label=0 | MW=226.23 | LogP=-0.05 | HBD=5 | HBA=5 | rings=1
+  SMILES: C[C@@](Cc1ccc(O)c(O)c1)(NN)C(O)=O
+
+  Label=0 | MW=304.22 | LogP=3.38 | HBD=1 | HBA=2 | rings=1
+  SMILES: OC(=O)CCCc1ccc(cc1)N(CCCl)CCCl
+
+  Label=0 | MW=169.18 | LogP=0.09 | HBD=4 | HBA=4 | rings=1
+  SMILES: NCC(O)c1ccc(O)c(O)c1
+
+============================================================
+3-4 Concrete examples: RF correct, GCN wrong
+============================================================
+  Label=1 | MW=360.33 | LogP=4.64 | HBD=0 | HBA=3 | rings=1
+  SMILES: C(=O)(OC(C)(C)C)CCCc1ccc(cc1)N(CCCl)CCCl
+
+  Label=1 | MW=356.23 | LogP=0.4 | HBD=3 | HBA=5 | rings=1
+  SMILES: C[S](=O)(=O)c1ccc(cc1)[C@@H](O)[C@@H](CO)NC(=O)C(Cl)Cl
+
+  Label=1 | MW=336.43 | LogP=2.37 | HBD=3 | HBA=5 | rings=1
+  SMILES: c1(c(cc(NC(CCC)=O)cc1)C(C)=O)OCC(CNC(C)C)O
+
+  Label=1 | MW=379.5 | LogP=2.89 | HBD=3 | HBA=5 | rings=1
+  SMILES: CCN(CC)C(=O)Nc1ccc(OCC(O)CNC(C)(C)C)c(c1)C(C)=O
+
+
+  Exact collision found! Tanimoto=1.0000
+  Mol A: label=1 | C1N(C(CC2CCCCC12)C(NC(C)(C)C)=O)CC(C(Cc1ccccc1)NC(C(NC(c1nc2c(cccc2)cc1)=O)CC(N)=O)=O)O
+  Mol B: label=0 | CC(C)(C)NC(=O)[C@@H]1C[C@@H]2CCCC[C@@H]2CN1C[C@@H](O)[C@H](Cc3ccccc3)NC(=O)[C@H](CC(N)=O)NC(=O)c4ccc5ccccc5n4
