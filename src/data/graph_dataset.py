@@ -1,5 +1,8 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 import torch
-from torch_geometric.data import Data
+from torch_geometric.data import Data, Dataset
 from rdkit import Chem
 from rdkit.Chem import rdchem
 from src.data.dataset import BBBPDataset
